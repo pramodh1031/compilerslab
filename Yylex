@@ -1,0 +1,38 @@
+import java.io.*;
+class Main{
+        public static void main(String args[]) throws IOException{
+           Yylex lex = new Yylex(System.in);
+           Token token = lex.yylex();
+                while(token.text !=null){
+                  token = lex.yylex();
+           }
+   }
+}
+
+class Token{
+        String text;
+       Token(String t){
+          text=t;
+    }
+}
+%%
+%public
+%class Yylex
+%type void
+
+digit = [0-9]
+letter =[a-zA-Z]
+special = [!@#$%^&*()_+]
+whitespace = [\t\n]
+quote = [\"]
+%type Token
+%eofval{
+return new Token(null);
+%eofval}
+
+%% 
+
+{quote}({letter}({letter}|{digit})*){quote}  {System.out.println("String "+yytext());}
+{digit}+ {System.out.println("Integer "+yytext());}
+{digit}+.{digit}+ {System.out.println("Float "+yytext());}
+[\n] {System.out.println("NL");}
