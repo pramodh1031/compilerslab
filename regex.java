@@ -1,122 +1,56 @@
-import java.util.regex.Pattern; 
-  
-class regex 
-{ 
- public static boolean Identifier(String input) {
-  char init = input.charAt(0);
-  if((init >= 'a' && init <= 'z') || (init >= 'A' && init <= 'Z')) {
-   for(int i=1; i<input.length(); i++) {
-    char temp = input.charAt(i);
-    if(!((init >= 'a' && init <= 'z') || (init >= 'A' && init <= 'Z') || (init >= '0' && init <= '9')))
-    return false;
-   }
-  }
-  else
-   return false;
-  return true;
- }
+package lab2;
 
- public static boolean Arithmetic(String input) {
-  for(int i=0; i<input.length(); i++) {
-   for(int j=i+1; j<input.length(); j++) {
-   if(input.substring(i,j).equals("+") || input.substring(i,j).equals("-") || input.substring(i,j).equals("*") || input.substring(i,j).equals("/") || input.substring(i,j).equals("%"))
-    return true;
+import java.util.*;
+public class Main {
+public static void main(String[] args)
+{
+String S = new String();
+Scanner t = new Scanner (System.in);
+S = t.nextLine();
+String[] w = S.split(" ");
+for(int i=0;i<w.length;i++) {
+System.out.print(w[i] + " ");
+if(w[i].matches("main") || w[i].matches("var") ) {
+System.out.println("Keyword");
 }
+else if(w[i].matches("[{]")){
+System.out.println(" Left curly braces");
 }
-   return false;
-  
- }
- public static boolean Logical(String input) {
-  for(int i=0; i<input.length(); i++) {
-   for(int j=i+1; j<input.length(); j++) {
-   if(input.substring(i,j).equals("||") || input.substring(i,j).equals("&&") || input.substring(i,j).equals("==") || input.substring(i,j).equals("!"))
-    return true;
+else if(w[i].matches("[}]")){
+System.out.println(" Right curly braces");
 }
+else if(w[i].matches("integer") || w[i].matches ("char") || w[i].matches ("string") || w[i].matches ("float") ) {
+System.out.println("Datatypers");
 }
-  return false;
- }
+else if(w[i].matches ("[(]")){
+System.out.println(" Left paranthesis");
+}
+else if(w[i].matches ("[)]")){
+System.out.println(" Right paranthesis");
+}
+else if(w[i].matches("[+]") || w[i].matches ("[-]") || w[i].matches ("[*]") || w[i].matches ("[/]")  || w[i].matches("[%]")) {
+System.out.println(" Arithmetic operators ");
+}
+else if(w[i].matches("[||]") || w[i].matches ("[&&]") || w[i].matches ("[!==]") ) {
+System.out.println("Logical operators ");
+}
+else if(w[i].matches ("[=]")){
+System.out.println(" Assignment operator");
+}
+else if(w[i].matches("input") ) {
+System.out.println("input function ");
+}
+else if(w[i].matches("output") ) {
+System.out.println("output function ");
+}
+else {
+String R = new String();
+R=w[i];
+if(R.matches("[a-zA-Z][a-zA-Z0-9]*")) {
+System.out.println("Identifiers");
+}
 
- public static boolean Assignment(String input) {
-  for(int i=0; i<input.length(); i++) {
-   for(int j=i+1; j<input.length(); j++) {
-   if(input.substring(i,j).equals("="))
-    return true;
 }
 }
-  return false;
- }
-public static boolean LParanthesis(String input) {
-  for(int i=0; i<input.length(); i++) {
-   for(int j=i+1; j<input.length(); j++) {
-   if(input.substring(i,j).equals("("))
-    return true;
-}
-}
-  return false;
- }
-public static boolean RParanthesis(String input) {
-  for(int i=0; i<input.length(); i++) {
-   for(int j=i+1; j<input.length(); j++) {
-   if(input.substring(i,j).equals(")"))
-    return true;
-}
-}
-  return false;
- }
-public static boolean LCurly(String input) {
-  for(int i=0; i<input.length(); i++) {
-   for(int j=i+1; j<input.length(); j++) {
-   if(input.substring(i,j).equals("{"))
-    return true;
-}
-}
-  return false;
- }
-public static boolean RCurly(String input) {
-  for(int i=0; i<input.length(); i++) {
-   for(int j=i+1; j<input.length(); j++) {
-   if(input.substring(i,j).equals("}"))
-    return true;
-}
-}
-  return false;
- }
-
-
- public static boolean Datatypes(String input) {
-   for(int i=0; i<input.length(); i++) {
-   for(int j=i+1; j<input.length(); j++) {
-   if(input.substring(i,j).equals("int")||input.substring(i,j).equals("char") ||input.substring(i,j).equals("string") || input.substring(i,j).equals("float"))
-    return true;
-}
-}
-  return false;
- }
-
- public static boolean Keywords(String input) {
-  for(int i=0; i<input.length(); i++) {
-   for(int j=i+1; j<input.length(); j++) {
-   if(input.substring(i,j).equals("var")||input.substring(i,j).equals("main") )
-    return true;
-}
-}
-  return false;
- }
-
- public static boolean Function(String input) {
-  for(int i=0; i<input.length(); i++) {
-   for(int j=i+1; j<input.length(); j++) {
-   if(input.substring(i,j).equals("input")||input.substring(i,j).equals("output") )
-    return true;
-}
-}
-  return false;
- }
-
-    public static void main(String args[]) 
-    { 
-        System.out.println (Pattern.matches("[a-zA-Z][a-zA-Z0-9]*","sakj1")); 
-        System.out.println (Pattern.matches("[a-zA-Z0-9]*[-||/||*||+||%][a-zA-Z0-9]*","b+c")); 
- System.out.println (Pattern.matches("[a-zA-Z0-9]*[-||/||*||+||%][a-zA-Z0-9]*","b+c"));     
-} 
+}  
 }
