@@ -1,0 +1,5 @@
+char ch,ch1;
+var int a,b;
+var int k = 5,c = 6;
+var string he = "hi";
+var float hello = 55.6;
