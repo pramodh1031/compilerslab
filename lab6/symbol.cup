@@ -1,0 +1,76 @@
+import java_cup.runtime.*;
+import java.util.*;
+
+init with {: :};
+
+action code {: Map<String,String> hash = new HashMap<String,String>(); :};
+
+scan with {: return getScanner().next_token(); :};
+terminal INT,STRING,COMMA,ID, SPACE, EOFILE,NL,EQ,QUOTE,STR,NIL,VAR,FLOAT,DECIMAL,SEMI,NUM, FL, ST;
+non terminal prog, stmt, decln, s,val, defn;
+s ::= prog {: System.out.println("Completed Parsing");System.exit(0); :} EOFILE {:System.exit(0);:} ;
+prog ::= prog stmt|stmt;
+stmt ::= decln
+	|val
+	|SPACE
+	|NL;
+decln ::= 	 INT SPACE ID:e SEMI {:
+					if(hash.get(e)==null)
+						{
+						System.out.println("Valid Declaration, Adding INT to HashMap with " + e);
+						hash.put(e.toString(),"INT");
+						}
+					else{
+						System.out.println("Error : Dupicate Declaration " + e + ", Declaration is not considered");					
+						}
+					  :}
+		     | FLOAT SPACE ID:e SEMI {:
+					if(hash.get(e)==null)
+						{
+						System.out.println("Valid Declaration, Adding FLOAT to HashMap with " + e);
+						hash.put(e.toString(),"FLOAT");
+						}
+					else{
+						System.out.println("Error : Dupicate Declaration " + e + ", Declaration is not considered");					
+						}
+					  :}
+		     | STR SPACE ID:e SEMI {:
+					if(hash.get(e)==null)
+						{
+						System.out.println("Valid Declaration, Adding STR to HashMap with " + e);
+						hash.put(e.toString(),"STR");
+						}
+					else{
+						System.out.println("Error : Dupicate Declaration " + e + ", Declaration is not considered");					
+						}
+					  :};
+val ::= ID:e SPACE EQ SPACE NUM:n SEMI {:
+						if(hash.get(e)==null)
+						{
+						System.out.println("ID is not declared, Please declare before using variable");
+						}
+						else if(hash.get(e)!="INT")
+						{
+						System.out.println(e+" is not declared as INT");
+						}
+						:}
+		|ID:e SPACE EQ SPACE FL:n SEMI {:
+						if(hash.get(e)==null)
+						{
+						System.out.println("ID is not declared, Please declare before using variable");
+						}
+						else if(hash.get(e)!="FLOAT")
+						{
+						System.out.println(e+" is not declared as FLOAT");
+						}
+						:}
+		|ID:e SPACE EQ SPACE ST:n SEMI {:
+						if(hash.get(e)==null)
+						{
+						System.out.println("ID is not declared, Please declare before using variable");
+						}
+						else if(hash.get(e)!="STR")
+						{
+						System.out.println(e+" is not declared as STR");
+						}
+						:};

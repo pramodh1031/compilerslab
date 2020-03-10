@@ -1,0 +1,10 @@
+int x;
+int y;
+int x;
+string z;
+float a;
+string y;
+k = 5;
+a = 6;
+a = 6.6;
+z = "hello";
